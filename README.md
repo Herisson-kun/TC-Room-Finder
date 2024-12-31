@@ -28,9 +28,10 @@ Ce projet permet de trouver les salles disponibles en TC en se basant sur un emp
 
 ## Utilisation
 
-1. Dans le script principal, modifiez la variable `date` et la variable `span` pour définir la date et la durée pour lesquelles vous souhaitez vérifier les disponibilités des salles. (span = 2 signifie deux tranches de 30 minutes, donc 1h.
-2. Pour une première execution, mettez UPDATE = True pour télécharger les .ical.
-3. Exécutez le script Python pour obtenir la liste des salles disponibles pour cette date.
+1. Créez un fichier texte "link.txt", collez y le lien de téléchargement du ical (ce lien se trouve bas de la page TC-net). Remplacez dans le lien par : promo={promo}&groupe={group}
+2. Dans le script principal, modifiez la variable `date` et la variable `span` pour définir la date et la durée pour lesquelles vous souhaitez vérifier les disponibilités des salles. (span = 2 signifie deux tranches de 30 minutes, donc 1h).
+3. Pour une première execution, mettez UPDATE = True pour télécharger les .ical. 
+4. Exécutez le script Python pour obtenir la liste des salles disponibles pour cette date.
 
 ```bash
 python room_finder_ical.py

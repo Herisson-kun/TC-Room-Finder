@@ -36,13 +36,20 @@ def get_ical(link, promo, group):
         with open(chemin_complet, 'wb') as f:
             f.write(response.content)
         print(f"Fichier téléchargé avec succès et sauvegardé sous : {chemin_complet}")
+        return True
     else:
         print(f"Échec du téléchargement. Code de statut : {response.status_code}")
+        return False
 
 def get_icals(link):
     # Promos et groupes
+    icals_ok = True
     for promo, group in classes:
-        get_ical(link, promo, group)
+        icals_ok=icals_ok and get_ical(link, promo, group)
+    if icals_ok:
+        return True
+    else:
+        return False
 
 def generer_heures(debut, fin, pas=30):
         heures = []

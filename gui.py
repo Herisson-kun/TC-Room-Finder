@@ -1,11 +1,36 @@
 import customtkinter
 from CTkDatePicker import CTkDatePicker
+from CTkMessagebox import CTkMessagebox
+from utils import get_icals, generate_table
+
+class UpdateIcalsWindow(customtkinter.CTkToplevel):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.title("Update iCals")
+        self.geometry("500x150")
+
+        self.label = customtkinter.CTkLabel(self, text="Entrez l'URL tc-net")
+        self.label.pack(pady=(10,0))
+        #create an entry to enter the tc-net link
+        self.url_entry = customtkinter.CTkEntry(self, width=400)
+        self.url_entry.pack(pady=10)
+        #create a button to update the icals
+        self.update_button = customtkinter.CTkButton(self, text="Download iCals", command=self.download_icals)
+        self.update_button.pack(pady=10)
+
+    def download_icals(self):
+        link = self.url_entry.get()
+        if get_icals(link):
+            CTkMessagebox(title="Info", message="Les iCals ont été téléchargés avec succès!", icon="check")
+        else:
+            CTkMessagebox(title="Error", message="Une erreur s'est produite lors du téléchargement des iCals.", icon="cancel")
 
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.geometry("400x500")
         self.title("TC Room Finder ")
+        self.toplevel_window = None
 
         #create a title at the top with modern font
         self.title_label = customtkinter.CTkLabel(self, text="TC Room Finder", font=("Arial", 24))
@@ -37,13 +62,21 @@ class App(customtkinter.CTk):
         self.button_frame = customtkinter.CTkFrame(self, fg_color="transparent")
         self.button_frame.pack(anchor="center", padx=30, pady=20)
 
-        self.update_button = customtkinter.CTkButton(self.button_frame, text="Update iCals", command=self.button_click)
+        self.update_button = customtkinter.CTkButton(self.button_frame, text="Update iCals", command=self.update_icals_click)
         self.update_button.pack(side="left", padx=10)
 
         self.find_room_button = customtkinter.CTkButton(self.button_frame, text="Trouver ma salle", command=self.button_click)
         self.find_room_button.pack(side="left", padx=10)
 
     # add methods to app
+
+    def update_icals_click(self):
+        print("Update iCals !")
+        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
+            self.toplevel_window = UpdateIcalsWindow(self)  # create window if its None or destroyed
+        else:
+            self.toplevel_window.focus()  # if window exists focus it
+
     def button_click(self):
         print("button click")
         self.setup_frame.pack_forget()

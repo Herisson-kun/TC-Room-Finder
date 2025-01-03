@@ -17,7 +17,7 @@ def open_groupe_ical(group):
             # Charger le fichier .ical en utilisant icalendar
             ical_content = file.read()
             calendar = Calendar.from_ical(ical_content)
-            print("Fichier chargé avec succès.")
+            #print("Fichier chargé avec succès.")
             return calendar
     except FileNotFoundError:
         print(f"Le fichier '{file_path}' est introuvable.")
@@ -37,7 +37,7 @@ def get_index(heure_str):
     
     return index
 
-def get_courses(calendar, date):
+def get_courses(timetable, calendar, date):
     for component in calendar.subcomponents:
         if component.name == "VEVENT":
             # Récupérer les informations de l'événement
@@ -67,33 +67,43 @@ def get_available_rooms(timetable, begin, span):
                 available_rooms.remove(room)
     return available_rooms
 
-link = get_link()
+def find_room_command():
+    link = get_link()
 
-date = '14/01/2025'
-begin = '08:00'
-span = 18
-if span > 20:
-    span_text = "toute la journée"
-else:
-    span_text = f"{span/2}h"
+    date = '14/01/2025'
+    begin = '08:00'
+    span = 18
+    if span > 20:
+        span_text = "toute la journée"
+    else:
+        span_text = f"{span/2}h"
 
-# Mettre à jour les fichiers .ical
-UPDATE = False
+    # Mettre à jour les fichiers .ical
+    UPDATE = False
 
-if UPDATE:
-    get_icals(link)
-    print("Fichiers .ical mis à jour.")
+    if UPDATE:
+        get_icals(link)
+        print("Fichiers .ical mis à jour.")
 
-# Initialiser l'emploi du temps
-timetable = generate_table()
+    # Initialiser l'emploi du temps
+    timetable = generate_table()
 
-# Parcourir tous les groupes de fichiers .ical dans le dossier 'ical'
-groups = os.listdir('ical')
+    # Parcourir tous les groupes de fichiers .ical dans le dossier 'ical'
+    groups = os.listdir('ical')
 
-for group in groups:
-    group_table = open_groupe_ical(group)
-    get_courses(group_table, date)
+    for group in groups:
+        group_table = open_groupe_ical(group)
+        get_courses(group_table, date)
 
-available_rooms = get_available_rooms(timetable, begin, span)
-print(f"Le {date} à {begin} pendant {span_text}, Salles disponibles :")
-print(available_rooms)
+    available_rooms = get_available_rooms(timetable, begin, span)
+    print(f"Le {date} à {begin} pendant {span_text}, Salles disponibles :")
+    print(available_rooms)
+
+def find_room_gui(date, begin, span):
+    timetable = generate_table()
+    groups = os.listdir('ical')
+    for group in groups:
+        group_table = open_groupe_ical(group)
+        get_courses(timetable, group_table, date)
+    available_rooms = get_available_rooms(timetable, begin, span)
+    return available_rooms

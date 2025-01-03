@@ -90,17 +90,18 @@ class App(customtkinter.CTk):
         span_hours, span_minutes = span.split(":")
         span = int(span_hours) * 2 + int(span_minutes) / 30
         span = int(span)
+        print(date, begin, span)
         available_rooms = find_room_gui(date, begin, span)
         self.setup_frame.pack_forget()
         self.button_frame.pack_forget()
         self.result_frame = customtkinter.CTkFrame(self)
         self.result_frame.pack(pady=20)
         self.result_label = customtkinter.CTkLabel(self.result_frame, text="Salles disponibles")
-        self.result_label.pack()
+        self.result_label.pack(pady=(20,0))
         self.result_textbox = customtkinter.CTkTextbox(self.result_frame)
         for room in available_rooms:
             self.result_textbox.insert("end", room + "\n")
-        self.result_textbox.pack(pady=20)
+        self.result_textbox.pack(padx=20, pady=20)
         self.back_button = customtkinter.CTkButton(self.result_frame, text="Retour", command=self.back_button_click)
         self.back_button.pack(pady=20)
 

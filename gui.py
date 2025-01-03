@@ -55,7 +55,7 @@ class App(customtkinter.CTk):
         #entrer l'heure de début avec une combobox
         self.begin_label = customtkinter.CTkLabel(self.setup_frame, text="Heure de début")
         self.begin_label.pack()
-        self.begin_combobox = customtkinter.CTkComboBox(self.setup_frame, values=["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"])
+        self.begin_combobox = customtkinter.CTkComboBox(self.setup_frame, values=["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"])
         self.begin_combobox.pack(pady=(0,20), after=self.begin_label)
         #entrer la durée en heures et minutes (hh:mm) avec une combobox
         self.span_label = customtkinter.CTkLabel(self.setup_frame, text="Durée")

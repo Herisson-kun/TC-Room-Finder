@@ -4,6 +4,7 @@ from CTkMessagebox import CTkMessagebox
 from utils import get_icals, generate_table
 from room_finder import find_room_gui
 from datetime import datetime
+import tkinter as tk
 
 class UpdateIcalsWindow(customtkinter.CTkToplevel):
     def __init__(self, *args, **kwargs):
@@ -115,4 +116,5 @@ class App(customtkinter.CTk):
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("green")
 app = App()
+app.iconphoto(False, tk.PhotoImage(file='room_finder3.png'))
 app.mainloop()

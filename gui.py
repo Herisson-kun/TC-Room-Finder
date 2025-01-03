@@ -116,5 +116,5 @@ class App(customtkinter.CTk):
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("green")
 app = App()
-app.iconphoto(False, tk.PhotoImage(file='room_finder3.png'))
+app.iconphoto(False, tk.PhotoImage(file='icons/room_finder3.png'))
 app.mainloop()

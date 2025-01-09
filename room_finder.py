@@ -77,7 +77,7 @@ if span > 20:
 else:
     span_text = f"{span/2}h"
 
-# Mettre à jour les fichiers .ical
+#Mettre à jour les fichiers .ical
 UPDATE = False
 
 if UPDATE:
